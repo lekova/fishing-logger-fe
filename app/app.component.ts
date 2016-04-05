@@ -3,7 +3,8 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/route
 
 @Component({
   selector: 'fishing-logger-app',
-  template: '<h1>{{title}}</h1>'
+  templateUrl: 'app/app.component.html',
+  styleUrls: ['app/app.component.css']
 })
 export class AppComponent {
   title = 'Fishing Logger';
