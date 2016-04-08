@@ -1,4 +1,4 @@
-System.register(['angular2/core'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', '../fishinglogs/fishinglogs', '../blocks/blocks'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,28 +10,66 @@ System.register(['angular2/core'], function(exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
-    var DahboardComponent;
+    var core_1, router_1, Rx_1, fishinglogs_1, blocks_1;
+    var DashboardComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (router_1_1) {
+                router_1 = router_1_1;
+            },
+            function (Rx_1_1) {
+                Rx_1 = Rx_1_1;
+            },
+            function (fishinglogs_1_1) {
+                fishinglogs_1 = fishinglogs_1_1;
+            },
+            function (blocks_1_1) {
+                blocks_1 = blocks_1_1;
             }],
         execute: function() {
-            DahboardComponent = (function () {
-                function DahboardComponent() {
+            DashboardComponent = (function () {
+                function DashboardComponent(_fishinglogService, _router, _toastService) {
+                    this._fishinglogService = _fishinglogService;
+                    this._router = _router;
+                    this._toastService = _toastService;
                 }
-                DahboardComponent = __decorate([
+                DashboardComponent.prototype.getFishinglogs = function () {
+                    var _this = this;
+                    // this._spinnerService.show();
+                    this.fishinglogs = this._fishinglogService.getFishinglogs()
+                        .catch(function (e) {
+                        _this._toastService.activate("" + e);
+                        return Rx_1.Observable.of();
+                    });
+                    // .finally(() => { this._spinnerService.hide(); })
+                };
+                DashboardComponent.prototype.gotoDetail = function (fishinglog) {
+                    var link = ['Fishinglogs', 'Fishinglog', { id: fishinglog.id }];
+                    this._router.navigate(link);
+                };
+                DashboardComponent.prototype.ngOnDestroy = function () {
+                    this._dbResetSubscription.unsubscribe();
+                };
+                DashboardComponent.prototype.ngOnInit = function () {
+                    var _this = this;
+                    this.getFishinglogs();
+                    this._dbResetSubscription = this._fishinglogService.onDbReset
+                        .subscribe(function () { return _this.getFishinglogs(); });
+                };
+                DashboardComponent = __decorate([
                     core_1.Component({
                         selector: 'my-dashboard',
                         templateUrl: 'app/dashboard/dashboard.component.html',
                         styleUrls: ['app/dashboard/dashboard.component.css']
                     }), 
-                    __metadata('design:paramtypes', [])
-                ], DahboardComponent);
-                return DahboardComponent;
+                    __metadata('design:paramtypes', [fishinglogs_1.FishinglogService, router_1.Router, blocks_1.ToastService])
+                ], DashboardComponent);
+                return DashboardComponent;
             }());
-            exports_1("DahboardComponent", DahboardComponent);
+            exports_1("DashboardComponent", DashboardComponent);
         }
     }
 });
