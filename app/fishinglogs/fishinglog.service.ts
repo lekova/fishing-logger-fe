@@ -1,9 +1,11 @@
 import { Injectable } from 'angular2/core';
 import { Http, Response } from 'angular2/http';
+import { Headers, RequestOptions} from 'angular2/http';
 import { Observable } from 'rxjs/Rx';
 
 import { ExceptionService, SpinnerService } from '../blocks/blocks';
 import { MessageService } from '../shared/shared';
+
 
 let fishinglogsUrl = "http://localhost:3050/fishinglogs";
 
@@ -20,12 +22,19 @@ export interface Fishinglog {
 
 @Injectable()
 export class FishinglogService {
+  private headers: any;
+  private options: any;
 
   constructor(private _http: Http,
     private _exceptionService: ExceptionService,
     private _messageService: MessageService,
     private _spinnerService: SpinnerService) {
     this._messageService.state.subscribe(state => this.getFishinglogs());
+    this.headers = new Headers({
+      'Content-Type': 'application/json',
+      'token': 'UCjzVApLFjXgfk6Fkz8SPA=='
+    });
+    this.options = new RequestOptions({ headers: this.headers });
   };
 
   addFishinglog(fishinglog: Fishinglog) {
