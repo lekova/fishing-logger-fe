@@ -32,7 +32,10 @@ import { EntityService, ExceptionService, ModalComponent, ModalService,
   ]
 })
 @RouteConfig([
-  { path: '/dashboard', name: 'Dashboard', component: DashboardComponent, useAsDefault: true },
+  { path: '/home', name: 'Home', component: HomeComponent, useAsDefault: true },
+  { path: '/login', name: 'Login', component: LoginComponent},
+  { path: '/signup', name: 'SignUp', component: SignupComponent },
+  { path: '/dashboard', name: 'Dashboard', component: DashboardComponent},
   { path: '/fishinglogs/...', name: 'Fishinglogs', component: FishinglogsComponent },
 ])
 export class AppComponent {
