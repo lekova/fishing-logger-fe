@@ -1,4 +1,4 @@
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+<!--<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
       <a class="md-title-icon" href="" target="_blank"><i></i></a>
@@ -11,14 +11,18 @@
       <a *ngFor="#item of menuItems" [routerLink]="item.link" class="nav-link" href="">{{item.caption}}</a>
     </div>
   </header>
-  <main class="mdl-layout__content">
+</div>-->
+
+<!--<main>
     <section>
-      <div class="page-content">
+        <div class="page-content"> 
         <router-outlet></router-outlet>
-      </div>
+        </div>
     </section>
-  </main>
-  <story-spinner></story-spinner>
-  <toast></toast>
-  <modal-confirm></modal-confirm>
-</div>
+</main>
+<story-spinner></story-spinner>
+<toast></toast>
+<modal-confirm></modal-confirm>-->
+
+
+<router-outlet></router-outlet>
