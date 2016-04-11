@@ -33,7 +33,7 @@ System.register(['angular2/core', 'angular2/router', './fishinglog.component', '
                 FishinglogsComponent = __decorate([
                     core_1.Component({
                         selector: 'story-fishinglogs-root',
-                        template: "\n    <router-outlet></router-outlet>\n  ",
+                        template: "<router-outlet></router-outlet>",
                         directives: [router_1.ROUTER_DIRECTIVES]
                     }),
                     router_1.RouteConfig([

@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/http', '../blocks/blocks', '../shared/shared'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/http', '../blocks/blocks', '../shared/shared', '../auth/auth.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/http', '../blocks/blocks', '../share
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, http_1, blocks_1, shared_1;
+    var core_1, http_1, http_2, blocks_1, shared_1, auth_service_1;
     var fishinglogsUrl, FishinglogService;
     return {
         setters:[
@@ -19,22 +19,27 @@ System.register(['angular2/core', 'angular2/http', '../blocks/blocks', '../share
             },
             function (http_1_1) {
                 http_1 = http_1_1;
+                http_2 = http_1_1;
             },
             function (blocks_1_1) {
                 blocks_1 = blocks_1_1;
             },
             function (shared_1_1) {
                 shared_1 = shared_1_1;
+            },
+            function (auth_service_1_1) {
+                auth_service_1 = auth_service_1_1;
             }],
         execute: function() {
-            fishinglogsUrl = "http://localhost:3050/fishinglogs";
+            fishinglogsUrl = "http://localhost:3050/fishing-logs";
             FishinglogService = (function () {
-                function FishinglogService(_http, _exceptionService, _messageService, _spinnerService) {
+                function FishinglogService(_http, _exceptionService, _messageService, _spinnerService, _authService) {
                     var _this = this;
                     this._http = _http;
                     this._exceptionService = _exceptionService;
                     this._messageService = _messageService;
                     this._spinnerService = _spinnerService;
+                    this._authService = _authService;
                     this.onDbReset = this._messageService.state;
                     this._messageService.state.subscribe(function (state) { return _this.getFishinglogs(); });
                 }
@@ -43,17 +48,31 @@ System.register(['angular2/core', 'angular2/http', '../blocks/blocks', '../share
                     var _this = this;
                     var body = JSON.stringify(fishinglog);
                     this._spinnerService.show();
+                    var token = localStorage.getItem('token');
+                    var headers = new http_2.Headers({
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Token token=' + token
+                    });
                     return this._http
-                        .post("" + fishinglogsUrl, body)
-                        .map(function (res) { return res.json().data; })
+                        .post("" + fishinglogsUrl, body, { headers: headers })
+                        .map(function (res) { return res.json(); })
                         .catch(this._exceptionService.catchBadResponse)
                         .finally(function () { return _this._spinnerService.hide(); });
                 };
                 FishinglogService.prototype.getFishinglogs = function () {
                     var _this = this;
                     this._spinnerService.show();
-                    return this._http.get(fishinglogsUrl)
-                        .map(function (response) { return response.json().data; })
+                    var token = localStorage.getItem('token');
+                    var headers = new http_2.Headers({
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Token token=' + token
+                    });
+                    return this._http.get("" + fishinglogsUrl, { headers: headers })
+                        .map(function (response) {
+                        debugger;
+                        console.log(response.json());
+                        return response.json();
+                    })
                         .catch(this._exceptionService.catchBadResponse)
                         .finally(function () { return _this._spinnerService.hide(); });
                 };
@@ -61,7 +80,7 @@ System.register(['angular2/core', 'angular2/http', '../blocks/blocks', '../share
                     var _this = this;
                     this._spinnerService.show();
                     return this._http.get(fishinglogsUrl + "/" + id)
-                        .map(function (response) { return response.json().data; })
+                        .map(function (response) { return response.json(); })
                         .catch(this._exceptionService.catchBadResponse)
                         .finally(function () { return _this._spinnerService.hide(); });
                 };
@@ -84,7 +103,7 @@ System.register(['angular2/core', 'angular2/http', '../blocks/blocks', '../share
                 };
                 FishinglogService = __decorate([
                     core_1.Injectable(), 
-                    __metadata('design:paramtypes', [http_1.Http, blocks_1.ExceptionService, shared_1.MessageService, blocks_1.SpinnerService])
+                    __metadata('design:paramtypes', [http_1.Http, blocks_1.ExceptionService, shared_1.MessageService, blocks_1.SpinnerService, auth_service_1.AuthService])
                 ], FishinglogService);
                 return FishinglogService;
             }());

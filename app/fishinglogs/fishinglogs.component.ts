@@ -7,9 +7,7 @@ import { FishinglogService } from './fishinglog.service';
 
 @Component({
   selector: 'story-fishinglogs-root',
-  template: `
-    <router-outlet></router-outlet>
-  `,
+  template: `<router-outlet></router-outlet>`,
   directives: [ROUTER_DIRECTIVES]
 })
 @RouteConfig([
