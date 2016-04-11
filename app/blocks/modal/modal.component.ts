@@ -38,7 +38,6 @@ export class ModalComponent implements OnInit {
     this.cancelText = this._defaults.cancelText;
 
     let promise = new Promise<boolean>((resolve, reject) => {
-        console.log("Promise WORKS");
       this.negativeOnClick = (e: any) => resolve(false);
       this.positiveOnClick = (e: any) => resolve(true);
       this._show();

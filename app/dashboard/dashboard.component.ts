@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from 'angular2/core';
-import { Router } from 'angular2/router';
+import { Router, CanActivate } from 'angular2/router';
 import { Observable, Subscription } from 'rxjs/Rx';
 
 import { Fishinglog, FishinglogService } from '../fishinglogs/fishinglogs';
+import { AuthService, isLoggedIn } from '../auth/auth.service';
 import { ToastService } from '../blocks/blocks';
 
 @Component({
@@ -10,6 +11,7 @@ import { ToastService } from '../blocks/blocks';
   templateUrl: 'app/dashboard/dashboard.component.html',
   styleUrls: ['app/dashboard/dashboard.component.css']
 })
+@CanActivate(isLoggedIn)
 export class DashboardComponent implements OnDestroy, OnInit {
   private _dbResetSubscription: Subscription;
 
@@ -22,8 +24,10 @@ export class DashboardComponent implements OnDestroy, OnInit {
 
   getFishinglogs() {
     // this._spinnerService.show();
+    debugger;
     this.fishinglogs = this._fishinglogService.getFishinglogs()
       .catch(e => {
+          debugger;
         this._toastService.activate(`${e}`);
         return Observable.of();
       })

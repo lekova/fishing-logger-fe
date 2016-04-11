@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', '../fishinglogs/fishinglogs', '../blocks/blocks'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', '../fishinglogs/fishinglogs', '../auth/auth.service', '../blocks/blocks'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', '../fishinglogs/
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, Rx_1, fishinglogs_1, blocks_1;
+    var core_1, router_1, Rx_1, fishinglogs_1, auth_service_1, blocks_1;
     var DashboardComponent;
     return {
         setters:[
@@ -26,6 +26,9 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', '../fishinglogs/
             function (fishinglogs_1_1) {
                 fishinglogs_1 = fishinglogs_1_1;
             },
+            function (auth_service_1_1) {
+                auth_service_1 = auth_service_1_1;
+            },
             function (blocks_1_1) {
                 blocks_1 = blocks_1_1;
             }],
@@ -39,8 +42,10 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', '../fishinglogs/
                 DashboardComponent.prototype.getFishinglogs = function () {
                     var _this = this;
                     // this._spinnerService.show();
+                    debugger;
                     this.fishinglogs = this._fishinglogService.getFishinglogs()
                         .catch(function (e) {
+                        debugger;
                         _this._toastService.activate("" + e);
                         return Rx_1.Observable.of();
                     });
@@ -64,7 +69,8 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', '../fishinglogs/
                         selector: 'my-dashboard',
                         templateUrl: 'app/dashboard/dashboard.component.html',
                         styleUrls: ['app/dashboard/dashboard.component.css']
-                    }), 
+                    }),
+                    router_1.CanActivate(auth_service_1.isLoggedIn), 
                     __metadata('design:paramtypes', [fishinglogs_1.FishinglogService, router_1.Router, blocks_1.ToastService])
                 ], DashboardComponent);
                 return DashboardComponent;

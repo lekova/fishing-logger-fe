@@ -41,7 +41,6 @@ System.register(['angular2/core', './modal.service'], function(exports_1, contex
                     this.okText = this._defaults.okText;
                     this.cancelText = this._defaults.cancelText;
                     var promise = new Promise(function (resolve, reject) {
-                        console.log("Promise WORKS");
                         _this.negativeOnClick = function (e) { return resolve(false); };
                         _this.positiveOnClick = function (e) { return resolve(true); };
                         _this._show();
