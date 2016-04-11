@@ -3,26 +3,26 @@ import { HTTP_PROVIDERS, XHRBackend } from 'angular2/http';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router';
 import 'rxjs/Rx'; // load the full rxjs
 
-// import { InMemoryBackendConfig, InMemoryBackendService, SEED_DATA } from 'a2-in-memory-web-api/core';
-// import { InMemoryStoryService } from '../api/in-memory-story.service';
-import { FishinglogsComponent, FishinglogService } from './fishinglogs/fishinglogs';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { MessageService } from './shared/shared';
 import { EntityService, ExceptionService, ModalComponent, ModalService,
          SpinnerComponent, SpinnerService, ToastComponent, ToastService } from './blocks/blocks';
+
+import { HomeComponent } from './home/home.component';
+import { LoginComponent, SignupComponent, AuthService, LoggedInRouterOutlet } from './auth/auth';
+import { DashboardComponent } from './dashboard/dashboard';
+import { FishinglogsComponent, FishinglogService } from './fishinglogs/fishinglogs';
 
 @Component({
   selector: 'fishing-logger-app',
   templateUrl: 'app/app.component.html',
   styleUrls: ['app/app.component.css'],
-  directives: [ROUTER_DIRECTIVES, ModalComponent, SpinnerComponent, ToastComponent],
+  directives: [ROUTER_DIRECTIVES, ModalComponent, SpinnerComponent, ToastComponent, LoggedInRouterOutlet],
   providers: [
     HTTP_PROVIDERS,
-    // provide(XHRBackend, { useClass: InMemoryBackendService }),
-    // provide(SEED_DATA, { useClass: InMemoryStoryService }),
-    // provide(InMemoryBackendConfig, { useValue: { delay: 600 } }),
     ROUTER_PROVIDERS,
     FishinglogService,
+    AuthService,
+    LoggedInRouterOutlet,
     EntityService,
     ExceptionService,
     MessageService,
@@ -35,8 +35,9 @@ import { EntityService, ExceptionService, ModalComponent, ModalService,
   { path: '/home', name: 'Home', component: HomeComponent, useAsDefault: true },
   { path: '/login', name: 'Login', component: LoginComponent},
   { path: '/signup', name: 'SignUp', component: SignupComponent },
+//   { path: '/change-password', name: 'ChangePassword', component: ChangePasswordComponent},
   { path: '/dashboard', name: 'Dashboard', component: DashboardComponent},
-  { path: '/fishinglogs/...', name: 'Fishinglogs', component: FishinglogsComponent },
+  { path: '/fishing-logs/...', name: 'Fishinglogs', component: FishinglogsComponent },
 ])
 export class AppComponent {
   public menuItems = [
