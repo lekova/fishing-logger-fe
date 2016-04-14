@@ -40,9 +40,11 @@ System.register(['angular2/core', 'angular2/router', './auth.service'], function
                     });
                 };
                 LoginComponent.prototype.logout = function (event) {
+                    var _this = this;
                     event.preventDefault();
-                    this._authService.logout();
-                    this._router.navigate(['Home']);
+                    this._authService.logout().subscribe(function () {
+                        _this._router.navigate(['Home']);
+                    });
                 };
                 __decorate([
                     core_1.Input(), 

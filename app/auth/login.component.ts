@@ -30,7 +30,8 @@ export class LoginComponent {
     
     logout(event: any) {
         event.preventDefault();
-        this._authService.logout();
-        this._router.navigate(['Home'])
+        this._authService.logout().subscribe(() => {
+            this._router.navigate(['Home']);    
+        });
     }
 }
