@@ -17,6 +17,7 @@ export interface Auth {
 export class AuthService {
     
     private _loggedIn = false;
+    private _currentUser: any;
     
     constructor(
         private _http: Http,
@@ -26,7 +27,6 @@ export class AuthService {
     }
     
     login(email: string, password: string) {
-        debugger;
         let headers = new Headers({'Content-Type': 'application/json'});
         let body = JSON.stringify({
             'credentials': {
@@ -39,9 +39,10 @@ export class AuthService {
         return this._http
             .post(`${authURL}/login`, body, { headers })
             .map((response) => {
-                debugger;
                 if (response.statusText === 'Ok') {
-                    localStorage.setItem('token', response.json().user.token)
+                    this._currentUser = response.json().user;
+                    localStorage.setItem('token', response.json().user.token);
+
                     this._loggedIn = true;     
                 }
                 return response.json().statusText;
@@ -65,7 +66,9 @@ export class AuthService {
         return this._http.post(`${authURL}/signup`, body, { headers: headers })
             .map(response => {
                 debugger;
+                this._currentUser = response.json().user;
                 localStorage.setItem('token', response.json().user.token);
+
                 this._loggedIn = true;
                 return response.json().data;
             }).catch(this._exceptionService.catchBadResponse)
@@ -73,9 +76,20 @@ export class AuthService {
     }
         
     logout() {
-        debugger;
-        localStorage.removeItem('token');
-        this._loggedIn = false;
+        let token = localStorage.getItem('token');
+
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Token token=' + token
+        });
+
+        return this._http.delete(`${authURL}/signout/${this._currentUser._id}`, { headers: headers })
+            .map(() => {
+                localStorage.removeItem('token');
+                this._loggedIn = false;
+            })
+            .catch(this._exceptionService.catchBadResponse)
+            .finally(() => {});
     }
     
     isLoggedIn() {

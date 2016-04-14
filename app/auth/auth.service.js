@@ -54,8 +54,9 @@ System.register(['angular2/core', 'angular2/http', '../blocks/blocks', '../share
                     return this._http
                         .post(authURL + "/login", body, { headers: headers })
                         .map(function (response) {
-                        debugger;
                         if (response.statusText === 'Ok') {
+                            debugger;
+                            _this._currentUser = response.json().user;
                             localStorage.setItem('token', response.json().user.token);
                             _this._loggedIn = true;
                         }
@@ -79,6 +80,7 @@ System.register(['angular2/core', 'angular2/http', '../blocks/blocks', '../share
                     return this._http.post(authURL + "/signup", body, { headers: headers })
                         .map(function (response) {
                         debugger;
+                        _this._currentUser = response.json().user;
                         localStorage.setItem('token', response.json().user.token);
                         _this._loggedIn = true;
                         return response.json().data;
@@ -86,9 +88,21 @@ System.register(['angular2/core', 'angular2/http', '../blocks/blocks', '../share
                         .finally(function () { return _this._spinnerService.hide(); });
                 };
                 AuthService.prototype.logout = function () {
+                    var _this = this;
                     debugger;
-                    localStorage.removeItem('token');
-                    this._loggedIn = false;
+                    var token = localStorage.getItem('token');
+                    var headers = new http_1.Headers({
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Token token=' + token
+                    });
+                    return this._http.delete(authURL + "/signout/" + this._currentUser._id, { headers: headers })
+                        .map(function () {
+                        debugger;
+                        localStorage.removeItem('token');
+                        _this._loggedIn = false;
+                    })
+                        .catch(this._exceptionService.catchBadResponse)
+                        .finally(function () { });
                 };
                 AuthService.prototype.isLoggedIn = function () {
                     return this._loggedIn;
