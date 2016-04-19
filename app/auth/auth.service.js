@@ -42,7 +42,6 @@ System.register(['angular2/core', 'angular2/http', '../blocks/blocks', '../share
                 }
                 AuthService.prototype.login = function (email, password) {
                     var _this = this;
-                    debugger;
                     var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
                     var body = JSON.stringify({
                         'credentials': {
@@ -55,12 +54,12 @@ System.register(['angular2/core', 'angular2/http', '../blocks/blocks', '../share
                         .post(authURL + "/login", body, { headers: headers })
                         .map(function (response) {
                         if (response.statusText === 'Ok') {
-                            debugger;
                             _this._currentUser = response.json().user;
                             localStorage.setItem('token', response.json().user.token);
+                            localStorage.setItem('_id', response.json().user._id);
                             _this._loggedIn = true;
                         }
-                        return response.json().statusText;
+                        return response.json();
                     })
                         .catch(this._exceptionService.catchBadResponse)
                         .finally(function () { return _this._spinnerService.hide(); });
@@ -82,8 +81,37 @@ System.register(['angular2/core', 'angular2/http', '../blocks/blocks', '../share
                         debugger;
                         _this._currentUser = response.json().user;
                         localStorage.setItem('token', response.json().user.token);
+                        localStorage.setItem('_id', response.json().user._id);
                         _this._loggedIn = true;
-                        return response.json().data;
+                        return response.json();
+                    }).catch(this._exceptionService.catchBadResponse)
+                        .finally(function () { return _this._spinnerService.hide(); });
+                };
+                AuthService.prototype.changePassword = function (oldPassword, newPassword) {
+                    var _this = this;
+                    debugger;
+                    this._spinnerService.show();
+                    event.preventDefault();
+                    var token = localStorage.getItem('token');
+                    var headers = new http_1.Headers({
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Token token=' + token
+                    });
+                    var body = JSON.stringify({
+                        'passwords': {
+                            'old': oldPassword,
+                            'new': newPassword
+                        }
+                    });
+                    var _id = localStorage.getItem('_id');
+                    return this._http.patch(authURL + "/changepw/" + _id, body, { headers: headers })
+                        .map(function (response) {
+                        debugger;
+                        _this._currentUser = response.json().user;
+                        localStorage.setItem('token', response.json().user.token);
+                        localStorage.setItem('_id', response.json().user._id);
+                        _this._loggedIn = true;
+                        return response.json();
                     }).catch(this._exceptionService.catchBadResponse)
                         .finally(function () { return _this._spinnerService.hide(); });
                 };
@@ -95,9 +123,9 @@ System.register(['angular2/core', 'angular2/http', '../blocks/blocks', '../share
                         'Content-Type': 'application/json',
                         'Authorization': 'Token token=' + token
                     });
-                    return this._http.delete(authURL + "/signout/" + this._currentUser._id, { headers: headers })
+                    var _id = localStorage.getItem('_id');
+                    return this._http.delete(authURL + "/signout/" + _id, { headers: headers })
                         .map(function () {
-                        debugger;
                         localStorage.removeItem('token');
                         _this._loggedIn = false;
                     })

@@ -42,10 +42,12 @@ export class AuthService {
                 if (response.statusText === 'Ok') {
                     this._currentUser = response.json().user;
                     localStorage.setItem('token', response.json().user.token);
+                    localStorage.setItem('_id', response.json().user._id);
+
 
                     this._loggedIn = true;     
                 }
-                return response.json().statusText;
+                return response.json();
             })
             .catch(this._exceptionService.catchBadResponse)
             .finally(() => this._spinnerService.hide());
@@ -68,14 +70,20 @@ export class AuthService {
                 debugger;
                 this._currentUser = response.json().user;
                 localStorage.setItem('token', response.json().user.token);
+                localStorage.setItem('_id', response.json().user._id);
+
 
                 this._loggedIn = true;
-                return response.json().data;
+                return response.json();
             }).catch(this._exceptionService.catchBadResponse)
             .finally(() => this._spinnerService.hide());
     }
+
+    changePassword(oldPassword: string, newPassword: string) {
+        debugger;
+        this._spinnerService.show();
+        event.preventDefault();
         
-    logout() {
         let token = localStorage.getItem('token');
 
         let headers = new Headers({
@@ -83,7 +91,38 @@ export class AuthService {
             'Authorization': 'Token token=' + token
         });
 
-        return this._http.delete(`${authURL}/signout/${this._currentUser._id}`, { headers: headers })
+        let body = JSON.stringify({
+            'passwords': {
+                'old': oldPassword,
+                'new': newPassword
+            }
+        });
+        let _id = localStorage.getItem('_id');
+        return this._http.patch(`${authURL}/changepw/${_id}`, body, { headers: headers })
+            .map(response => {
+                debugger;
+                this._currentUser = response.json().user;
+                localStorage.setItem('token', response.json().user.token);
+                localStorage.setItem('_id', response.json().user._id);
+
+
+                this._loggedIn = true;
+                return response.json();
+            }).catch(this._exceptionService.catchBadResponse)
+            .finally(() => this._spinnerService.hide());
+    }
+
+    logout() {
+        debugger;
+        let token = localStorage.getItem('token');
+
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Token token=' + token
+        });
+
+        let _id = localStorage.getItem('_id');
+        return this._http.delete(`${authURL}/signout/${_id}`, { headers: headers })
             .map(() => {
                 localStorage.removeItem('token');
                 this._loggedIn = false;
