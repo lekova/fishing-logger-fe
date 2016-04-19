@@ -8,7 +8,7 @@ import { EntityService, ExceptionService, ModalComponent, ModalService,
          SpinnerComponent, SpinnerService, ToastComponent, ToastService } from './blocks/blocks';
 
 import { HomeComponent } from './home/home.component';
-import { LoginComponent, SignupComponent, AuthService, LoggedInRouterOutlet } from './auth/auth';
+import { LoginComponent, SignupComponent, AuthService, LoggedInRouterOutlet, ChangePasswordComponent } from './auth/auth';
 import { DashboardComponent } from './dashboard/dashboard';
 import { FishinglogsComponent, FishinglogService } from './fishinglogs/fishinglogs';
 
@@ -35,7 +35,7 @@ import { FishinglogsComponent, FishinglogService } from './fishinglogs/fishinglo
   { path: '/home', name: 'Home', component: HomeComponent, useAsDefault: true },
   { path: '/login', name: 'Login', component: LoginComponent},
   { path: '/signup', name: 'SignUp', component: SignupComponent },
-//   { path: '/change-password', name: 'ChangePassword', component: ChangePasswordComponent},
+  { path: '/changepw', name: 'ChangePassword', component: ChangePasswordComponent},
   { path: '/dashboard', name: 'Dashboard', component: DashboardComponent},
   { path: '/fishing-logs/...', name: 'Fishinglogs', component: FishinglogsComponent },
 ])
