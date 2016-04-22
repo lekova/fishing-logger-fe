@@ -18,20 +18,13 @@ export class SignupComponent {
         private _authService: AuthService
     ) { }
     
-    signup(event: any, email: string, password: string, confirmPassword: string) {
-        debugger;
+    signup(event: any) {
         event.preventDefault();
         
-        this._authService.signup(email, password, confirmPassword).subscribe((result) => {
-            debugger;
-            if (result) {
-                //this._router.navigate(['Dashboard']);
-            }
-        });
-    }
-     
-    onClick(event: any) {
-        event.preventDefault();
+        // TODO
+        // if this.userPassword != this.userConfirmPassword
+        // display message "Passwords do not match"
+        // and make them red
         
         this._authService.signup(this.userEmail, this.userPassword, this.userConfirmPassword).subscribe((result) => {
             debugger;

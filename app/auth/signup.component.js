@@ -29,18 +29,13 @@ System.register(['angular2/core', 'angular2/router', './auth.service'], function
                     this._router = _router;
                     this._authService = _authService;
                 }
-                SignupComponent.prototype.signup = function (event, email, password, confirmPassword) {
-                    debugger;
-                    event.preventDefault();
-                    this._authService.signup(email, password, confirmPassword).subscribe(function (result) {
-                        debugger;
-                        if (result) {
-                        }
-                    });
-                };
-                SignupComponent.prototype.onClick = function (event) {
+                SignupComponent.prototype.signup = function (event) {
                     var _this = this;
                     event.preventDefault();
+                    // TODO
+                    // if this.userPassword != this.userConfirmPassword
+                    // display message "Passwords do not match"
+                    // and make them red
                     this._authService.signup(this.userEmail, this.userPassword, this.userConfirmPassword).subscribe(function (result) {
                         debugger;
                         if (result) {
