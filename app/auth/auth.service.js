@@ -56,7 +56,6 @@ System.register(['angular2/core', 'angular2/http', '../blocks/blocks', '../share
                         if (response.statusText === 'Ok') {
                             _this._currentUser = response.json().user;
                             localStorage.setItem('token', response.json().user.token);
-                            localStorage.setItem('_id', response.json().user._id);
                             _this._loggedIn = true;
                         }
                         return response.json();
@@ -78,7 +77,6 @@ System.register(['angular2/core', 'angular2/http', '../blocks/blocks', '../share
                     });
                     return this._http.post(authURL + "/signup", body, { headers: headers })
                         .map(function (response) {
-                        debugger;
                         _this._currentUser = response.json().user;
                         localStorage.setItem('token', response.json().user.token);
                         localStorage.setItem('_id', response.json().user._id);
@@ -89,7 +87,6 @@ System.register(['angular2/core', 'angular2/http', '../blocks/blocks', '../share
                 };
                 AuthService.prototype.changePassword = function (oldPassword, newPassword) {
                     var _this = this;
-                    debugger;
                     this._spinnerService.show();
                     event.preventDefault();
                     var token = localStorage.getItem('token');
@@ -103,13 +100,10 @@ System.register(['angular2/core', 'angular2/http', '../blocks/blocks', '../share
                             'new': newPassword
                         }
                     });
-                    var _id = localStorage.getItem('_id');
-                    return this._http.patch(authURL + "/changepw/" + _id, body, { headers: headers })
+                    return this._http.patch(authURL + "/changepw", body, { headers: headers })
                         .map(function (response) {
-                        debugger;
                         _this._currentUser = response.json().user;
                         localStorage.setItem('token', response.json().user.token);
-                        localStorage.setItem('_id', response.json().user._id);
                         _this._loggedIn = true;
                         return response.json();
                     }).catch(this._exceptionService.catchBadResponse)
@@ -117,14 +111,12 @@ System.register(['angular2/core', 'angular2/http', '../blocks/blocks', '../share
                 };
                 AuthService.prototype.logout = function () {
                     var _this = this;
-                    debugger;
                     var token = localStorage.getItem('token');
                     var headers = new http_1.Headers({
                         'Content-Type': 'application/json',
                         'Authorization': 'Token token=' + token
                     });
-                    var _id = localStorage.getItem('_id');
-                    return this._http.delete(authURL + "/signout/" + _id, { headers: headers })
+                    return this._http.delete(authURL + "/signout", { headers: headers })
                         .map(function () {
                         localStorage.removeItem('token');
                         _this._loggedIn = false;

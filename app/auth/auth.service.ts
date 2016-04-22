@@ -42,8 +42,6 @@ export class AuthService {
                 if (response.statusText === 'Ok') {
                     this._currentUser = response.json().user;
                     localStorage.setItem('token', response.json().user.token);
-                    localStorage.setItem('_id', response.json().user._id);
-
 
                     this._loggedIn = true;     
                 }
@@ -56,7 +54,7 @@ export class AuthService {
     signup(email: string, password: string, confirmPassword: string) {
         this._spinnerService.show();
         event.preventDefault();
-        
+
         let headers = new Headers({'Content-Type': 'application/json'});
         let body = JSON.stringify({
             'credentials': {
@@ -67,7 +65,6 @@ export class AuthService {
         });
         return this._http.post(`${authURL}/signup`, body, { headers: headers })
             .map(response => {
-                debugger;
                 this._currentUser = response.json().user;
                 localStorage.setItem('token', response.json().user.token);
                 localStorage.setItem('_id', response.json().user._id);
@@ -80,7 +77,6 @@ export class AuthService {
     }
 
     changePassword(oldPassword: string, newPassword: string) {
-        debugger;
         this._spinnerService.show();
         event.preventDefault();
         
@@ -97,14 +93,11 @@ export class AuthService {
                 'new': newPassword
             }
         });
-        let _id = localStorage.getItem('_id');
-        return this._http.patch(`${authURL}/changepw/${_id}`, body, { headers: headers })
+
+        return this._http.patch(`${authURL}/changepw`, body, { headers: headers })
             .map(response => {
-                debugger;
                 this._currentUser = response.json().user;
                 localStorage.setItem('token', response.json().user.token);
-                localStorage.setItem('_id', response.json().user._id);
-
 
                 this._loggedIn = true;
                 return response.json();
@@ -113,7 +106,6 @@ export class AuthService {
     }
 
     logout() {
-        debugger;
         let token = localStorage.getItem('token');
 
         let headers = new Headers({
@@ -121,8 +113,7 @@ export class AuthService {
             'Authorization': 'Token token=' + token
         });
 
-        let _id = localStorage.getItem('_id');
-        return this._http.delete(`${authURL}/signout/${_id}`, { headers: headers })
+        return this._http.delete(`${authURL}/signout`, { headers: headers })
             .map(() => {
                 localStorage.removeItem('token');
                 this._loggedIn = false;
