@@ -19,10 +19,8 @@ export class LoginComponent {
     
     login(event: any) {
         event.preventDefault();
-        
         this._authService.login(this.userEmail, this.userPass).subscribe((result) => {
             if (result) {
-                debugger;
                 this._router.navigate(['Dashboard']);
             }
         });

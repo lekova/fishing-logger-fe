@@ -1,19 +1,18 @@
 <div class="signup center-block jumbotron">
-  <h1>Signup</h1>
-  <form role="form">
-  <div class="form-group">
-    <label for="email">Email</label>
-    <input type="text" #email class="form-control" [(ngModel)]="userEmail" id="email" placeholder="Email">
-  </div>
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password" #password class="form-control" [(ngModel)]="userPassword" id="password" placeholder="Password">
-  </div>
-  <div class="form-group">
-    <label for="confirmPassword">Confirm Password</label>
-    <input type="password" #consfirmPassword class="form-control" [(ngModel)]="userConfirmPassword" id="confirmPassword" placeholder="Confirm Password">
-  </div>
-  <button type="button" class="btn btn-default" (click)="onClick($event)">Sign Up</button>
-
-</form>
+    <h1>Signup</h1>
+    <form role="form">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" #email class="form-control" [(ngModel)]="userEmail" id="email" placeholder="Email">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" #password class="form-control" [(ngModel)]="userPassword" id="password" placeholder="Password">
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" #consfirmPassword class="form-control" [(ngModel)]="userConfirmPassword" id="confirmPassword" placeholder="Confirm Password">
+        </div>
+        <button type="button" class="btn btn-default" (click)="signup($event)">Sign Up</button>
+    </form>
 </div>

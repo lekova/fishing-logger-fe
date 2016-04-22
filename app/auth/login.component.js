@@ -32,9 +32,10 @@ System.register(['angular2/core', 'angular2/router', './auth.service'], function
                 LoginComponent.prototype.login = function (event) {
                     var _this = this;
                     event.preventDefault();
+                    debugger;
                     this._authService.login(this.userEmail, this.userPass).subscribe(function (result) {
+                        debugger;
                         if (result) {
-                            debugger;
                             _this._router.navigate(['Dashboard']);
                         }
                     });
@@ -43,6 +44,7 @@ System.register(['angular2/core', 'angular2/router', './auth.service'], function
                     var _this = this;
                     event.preventDefault();
                     this._authService.logout().subscribe(function () {
+                        debugger;
                         _this._router.navigate(['Home']);
                     });
                 };
