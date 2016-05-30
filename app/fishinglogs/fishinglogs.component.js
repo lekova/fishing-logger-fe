@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './fishinglog.component', './fishinglog-list.component'], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/router-deprecated', './fishinglog.component', './fishinglog-list.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,15 +10,15 @@ System.register(['angular2/core', 'angular2/router', './fishinglog.component', '
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, fishinglog_component_1, fishinglog_list_component_1;
+    var core_1, router_deprecated_1, fishinglog_component_1, fishinglog_list_component_1;
     var FishinglogsComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (router_1_1) {
-                router_1 = router_1_1;
+            function (router_deprecated_1_1) {
+                router_deprecated_1 = router_deprecated_1_1;
             },
             function (fishinglog_component_1_1) {
                 fishinglog_component_1 = fishinglog_component_1_1;
@@ -34,9 +34,9 @@ System.register(['angular2/core', 'angular2/router', './fishinglog.component', '
                     core_1.Component({
                         selector: 'story-fishinglogs-root',
                         template: "<router-outlet></router-outlet>",
-                        directives: [router_1.ROUTER_DIRECTIVES]
+                        directives: [router_deprecated_1.ROUTER_DIRECTIVES]
                     }),
-                    router_1.RouteConfig([
+                    router_deprecated_1.RouteConfig([
                         { path: '/', name: 'Fishinglogs', component: fishinglog_list_component_1.FishinglogListComponent, useAsDefault: true },
                         { path: '/list/:id', name: 'Fishinglogs', component: fishinglog_list_component_1.FishinglogListComponent },
                         { path: '/:id', name: 'Fishinglog', component: fishinglog_component_1.FishinglogComponent }

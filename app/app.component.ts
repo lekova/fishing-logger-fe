@@ -1,6 +1,6 @@
-import { Component } from 'angular2/core';
-import { HTTP_PROVIDERS, XHRBackend } from 'angular2/http';
-import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router';
+import { Component } from '@angular/core';
+import { CORE_DIRECTIVES } from '@angular/common';
+import { RouteConfig } from '@angular/router-deprecated';
 import 'rxjs/Rx'; // load the full rxjs
 
 import { MessageService } from './shared/shared';
@@ -16,10 +16,8 @@ import { FishinglogsComponent, FishinglogService } from './fishinglogs/fishinglo
   selector: 'fishing-logger-app',
   templateUrl: 'app/app.component.html',
   styleUrls: ['app/app.component.css'],
-  directives: [ROUTER_DIRECTIVES, ModalComponent, SpinnerComponent, ToastComponent, LoggedInRouterOutlet],
+  directives: [ModalComponent, SpinnerComponent, ToastComponent, LoggedInRouterOutlet],
   providers: [
-    HTTP_PROVIDERS,
-    ROUTER_PROVIDERS,
     FishinglogService,
     AuthService,
     LoggedInRouterOutlet,
@@ -48,14 +46,5 @@ export class AppComponent {
   constructor(
     private _messageService: MessageService,
     private _modalService: ModalService) {
-  }
-
-  resetDb() {
-    let msg = 'Are you sure you want to reset the database?';
-    this._modalService.activate(msg).then(responseOK => {
-      if (responseOK) {
-        this._messageService.resetDb();
-      }
-    });
   }
 }

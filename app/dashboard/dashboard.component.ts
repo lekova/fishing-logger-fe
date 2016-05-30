@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from 'angular2/core';
-import { Router, CanActivate } from 'angular2/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router, CanActivate } from '@angular/router-deprecated';
 import { Observable, Subscription } from 'rxjs/Rx';
 
 import { Fishinglog, FishinglogService } from '../fishinglogs/fishinglogs';
@@ -11,11 +11,14 @@ import { ToastService } from '../blocks/blocks';
   templateUrl: 'app/dashboard/dashboard.component.html',
   styleUrls: ['app/dashboard/dashboard.component.css']
 })
-@CanActivate(isLoggedIn)
+@CanActivate(() => {
+  console.log("Can Activate ")
+  return isLoggedIn()
+})
 export class DashboardComponent implements OnDestroy, OnInit {
   private _dbResetSubscription: Subscription;
 
-  fishinglogs: Observable<Fishinglog[]>;
+  fishinglogs: Observable<any>;
 
   constructor(
     private _fishinglogService: FishinglogService,
@@ -25,12 +28,14 @@ export class DashboardComponent implements OnDestroy, OnInit {
   getFishinglogs() {
     // this._spinnerService.show();
     debugger;
-    this.fishinglogs = this._fishinglogService.getFishinglogs()
+    
+    var result = this._fishinglogService.getFishinglogs()
       .catch(e => {
           debugger;
         this._toastService.activate(`${e}`);
         return Observable.of();
-      })
+      });
+    this.fishinglogs = result;
       // .finally(() => { this._spinnerService.hide(); })
   }
 

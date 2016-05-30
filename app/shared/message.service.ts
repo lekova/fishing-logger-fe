@@ -1,5 +1,5 @@
-import { Injectable } from 'angular2/core';
-import { Http, Response } from 'angular2/http';
+import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
 import { Observable, Subject } from 'rxjs/Rx';
 
 import { CONFIG } from './config';
@@ -11,7 +11,7 @@ export interface IResetMessage {
 
 @Injectable()
 export class MessageService {
-  private _subject = new Subject();
+  private _subject = new Subject<IResetMessage>();
 
   state = <Observable<IResetMessage>>this._subject;
 

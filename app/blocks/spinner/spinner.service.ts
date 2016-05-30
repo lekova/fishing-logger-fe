@@ -1,4 +1,4 @@
-import { Injectable } from 'angular2/core';
+import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs/Rx';
 
 export interface ISpinnerState {
@@ -7,7 +7,7 @@ export interface ISpinnerState {
 
 @Injectable()
 export class SpinnerService {
-  private _spinnerSubject = new Subject();
+  private _spinnerSubject = new Subject<ISpinnerState>();
 
   spinnerState = <Observable<ISpinnerState>>this._spinnerSubject;
 

@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './auth.service'], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/router-deprecated', './auth.service', '@angular2-material/toolbar', '@angular2-material/button', '@angular2-material/sidenav', '@angular2-material/list', '@angular2-material/card', '@angular2-material/input', '@angular2-material/icon'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,18 +10,39 @@ System.register(['angular2/core', 'angular2/router', './auth.service'], function
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, auth_service_1;
+    var core_1, router_deprecated_1, auth_service_1, toolbar_1, button_1, sidenav_1, list_1, card_1, input_1, icon_1;
     var LoginComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (router_1_1) {
-                router_1 = router_1_1;
+            function (router_deprecated_1_1) {
+                router_deprecated_1 = router_deprecated_1_1;
             },
             function (auth_service_1_1) {
                 auth_service_1 = auth_service_1_1;
+            },
+            function (toolbar_1_1) {
+                toolbar_1 = toolbar_1_1;
+            },
+            function (button_1_1) {
+                button_1 = button_1_1;
+            },
+            function (sidenav_1_1) {
+                sidenav_1 = sidenav_1_1;
+            },
+            function (list_1_1) {
+                list_1 = list_1_1;
+            },
+            function (card_1_1) {
+                card_1 = card_1_1;
+            },
+            function (input_1_1) {
+                input_1 = input_1_1;
+            },
+            function (icon_1_1) {
+                icon_1 = icon_1_1;
             }],
         execute: function() {
             LoginComponent = (function () {
@@ -32,9 +53,7 @@ System.register(['angular2/core', 'angular2/router', './auth.service'], function
                 LoginComponent.prototype.login = function (event) {
                     var _this = this;
                     event.preventDefault();
-                    debugger;
                     this._authService.login(this.userEmail, this.userPass).subscribe(function (result) {
-                        debugger;
                         if (result) {
                             _this._router.navigate(['Dashboard']);
                         }
@@ -44,7 +63,6 @@ System.register(['angular2/core', 'angular2/router', './auth.service'], function
                     var _this = this;
                     event.preventDefault();
                     this._authService.logout().subscribe(function () {
-                        debugger;
                         _this._router.navigate(['Home']);
                     });
                 };
@@ -60,9 +78,19 @@ System.register(['angular2/core', 'angular2/router', './auth.service'], function
                     core_1.Component({
                         selector: 'login',
                         templateUrl: 'app/auth/login.component.html',
-                        styleUrls: ['app/auth/login.component.css']
+                        styleUrls: ['app/auth/login.component.css'],
+                        directives: [
+                            sidenav_1.MD_SIDENAV_DIRECTIVES,
+                            list_1.MD_LIST_DIRECTIVES,
+                            card_1.MD_CARD_DIRECTIVES,
+                            toolbar_1.MdToolbar,
+                            button_1.MdButton,
+                            input_1.MdInput,
+                            icon_1.MdIcon
+                        ],
+                        providers: [icon_1.MdIconRegistry],
                     }), 
-                    __metadata('design:paramtypes', [router_1.Router, auth_service_1.AuthService])
+                    __metadata('design:paramtypes', [router_deprecated_1.Router, auth_service_1.AuthService])
                 ], LoginComponent);
                 return LoginComponent;
             }());

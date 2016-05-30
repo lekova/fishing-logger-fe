@@ -1,6 +1,6 @@
-import { Injectable } from 'angular2/core';
-import { Http, Response } from 'angular2/http';
-import { Headers } from 'angular2/http';
+import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
+import { Headers } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
 import { ExceptionService, SpinnerService } from '../blocks/blocks';
@@ -34,7 +34,7 @@ export class FishinglogService {
       this._messageService.state.subscribe(state => this.getFishinglogs());
   };
 
-  addFishinglog(fishinglog: Fishinglog) {
+  addFishinglog(fishinglog: Fishinglog): Observable<any> {
     let body = JSON.stringify(fishinglog);
     this._spinnerService.show();
     let token = localStorage.getItem('token');
@@ -51,17 +51,17 @@ export class FishinglogService {
       .finally(() => this._spinnerService.hide());
   }
 
-  getFishinglogs() {
+  getFishinglogs(): Observable<any> {
     this._spinnerService.show();
     let token = localStorage.getItem('token');
-
+    debugger;
     let headers = new Headers({
         'Content-Type': 'application/json',
         'Authorization': 'Token token=' + token
     });
+    
     return this._http.get(`${fishinglogsUrl}`, { headers })
       .map((response: Response) => {
-        debugger;
         console.log(response.json());
         return <Fishinglog[]>response.json();
       })

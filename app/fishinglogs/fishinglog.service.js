@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/http', '../blocks/blocks', '../shared/shared', '../auth/auth.service'], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/http', '../blocks/blocks', '../shared/shared', '../auth/auth.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -63,13 +63,13 @@ System.register(['angular2/core', 'angular2/http', '../blocks/blocks', '../share
                     var _this = this;
                     this._spinnerService.show();
                     var token = localStorage.getItem('token');
+                    debugger;
                     var headers = new http_2.Headers({
                         'Content-Type': 'application/json',
                         'Authorization': 'Token token=' + token
                     });
                     return this._http.get("" + fishinglogsUrl, { headers: headers })
                         .map(function (response) {
-                        debugger;
                         console.log(response.json());
                         return response.json();
                     })

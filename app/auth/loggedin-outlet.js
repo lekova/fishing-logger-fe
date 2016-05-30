@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './auth.service', '../blocks/blocks'], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/router-deprecated', './auth.service', '../blocks/blocks'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
@@ -18,15 +18,15 @@ System.register(['angular2/core', 'angular2/router', './auth.service', '../block
     var __param = (this && this.__param) || function (paramIndex, decorator) {
         return function (target, key) { decorator(target, key, paramIndex); }
     };
-    var core_1, router_1, auth_service_1, blocks_1;
+    var core_1, router_deprecated_1, auth_service_1, blocks_1;
     var LoggedInRouterOutlet;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (router_1_1) {
-                router_1 = router_1_1;
+            function (router_deprecated_1_1) {
+                router_deprecated_1 = router_deprecated_1_1;
             },
             function (auth_service_1_1) {
                 auth_service_1 = auth_service_1_1;
@@ -48,10 +48,10 @@ System.register(['angular2/core', 'angular2/router', './auth.service', '../block
                 }
                 LoggedInRouterOutlet.prototype.activate = function (instruction) {
                     var url = this._router.lastNavigationAttempt;
-                    // if (!this.publicRoutes[url] && !this._authService.isLoggedIn()) {
-                    //     // todo: redirect to Login, may be there a better way?
-                    //     this._router.navigateByUrl('/login');
-                    // }
+                    if (!this.publicRoutes[url] && !auth_service_1.isLoggedIn()) {
+                        // todo: redirect to Login, may be there a better way?
+                        this._router.navigateByUrl('/login');
+                    }
                     return _super.prototype.activate.call(this, instruction);
                 };
                 LoggedInRouterOutlet = __decorate([
@@ -60,10 +60,10 @@ System.register(['angular2/core', 'angular2/router', './auth.service', '../block
                         bindings: [blocks_1.ExceptionService]
                     }),
                     __param(3, core_1.Attribute('name')), 
-                    __metadata('design:paramtypes', [core_1.ElementRef, core_1.DynamicComponentLoader, router_1.Router, String, auth_service_1.AuthService, blocks_1.ExceptionService])
+                    __metadata('design:paramtypes', [core_1.ViewContainerRef, core_1.DynamicComponentLoader, router_deprecated_1.Router, String, auth_service_1.AuthService, blocks_1.ExceptionService])
                 ], LoggedInRouterOutlet);
                 return LoggedInRouterOutlet;
-            }(router_1.RouterOutlet));
+            }(router_deprecated_1.RouterOutlet));
             exports_1("LoggedInRouterOutlet", LoggedInRouterOutlet);
         }
     }

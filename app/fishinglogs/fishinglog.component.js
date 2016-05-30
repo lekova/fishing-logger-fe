@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', '../blocks/blocks', '../fishinglogs/fishinglog.service'], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/router-deprecated', '../blocks/blocks', '../fishinglogs/fishinglog.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,15 +10,15 @@ System.register(['angular2/core', 'angular2/router', '../blocks/blocks', '../fis
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, blocks_1, fishinglog_service_1;
+    var core_1, router_deprecated_1, blocks_1, fishinglog_service_1;
     var FishinglogComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (router_1_1) {
-                router_1 = router_1_1;
+            function (router_deprecated_1_1) {
+                router_deprecated_1 = router_deprecated_1_1;
             },
             function (blocks_1_1) {
                 blocks_1 = blocks_1_1;
@@ -84,7 +84,7 @@ System.register(['angular2/core', 'angular2/router', '../blocks/blocks', '../fis
                         this._fishinglogService.addFishinglog(fishinglog)
                             .subscribe(function (char) {
                             _this._setEditFishinglog(char);
-                            _this._toastService.activate("Successfully added " + char.name);
+                            _this._toastService.activate("Successfully added " + char.palce_name);
                             _this._gotoFishinglogs();
                         });
                         return;
@@ -134,9 +134,9 @@ System.register(['angular2/core', 'angular2/router', '../blocks/blocks', '../fis
                         selector: 'my-fishing-log',
                         templateUrl: 'app/fishinglogs/fishinglog.component.html',
                         styles: ['.mdl-textfield__label {top: 0;}'],
-                        directives: [router_1.ROUTER_DIRECTIVES]
+                        directives: [router_deprecated_1.ROUTER_DIRECTIVES]
                     }), 
-                    __metadata('design:paramtypes', [fishinglog_service_1.FishinglogService, blocks_1.EntityService, blocks_1.ModalService, router_1.RouteParams, router_1.Router, blocks_1.ToastService])
+                    __metadata('design:paramtypes', [fishinglog_service_1.FishinglogService, blocks_1.EntityService, blocks_1.ModalService, router_deprecated_1.RouteParams, router_deprecated_1.Router, blocks_1.ToastService])
                 ], FishinglogComponent);
                 return FishinglogComponent;
             }());

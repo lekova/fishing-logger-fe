@@ -1,10 +1,12 @@
-import { Component, OnDestroy, OnInit, ViewChild } from 'angular2/core';
-import { ROUTER_DIRECTIVES } from 'angular2/router';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { Observable, Subscription } from 'rxjs/Rx';
 
 import { Fishinglog, FishinglogService } from './fishinglog.service';
 import { SortFishinglogsPipe } from './sort-fishinglogs.pipe';
 import { FilterService, FilterTextComponent } from '../blocks/blocks';
+
+declare var componentHandler: any;
 
 @Component({
   selector: 'story-fishinglogs',
@@ -25,7 +27,7 @@ export class FishinglogListComponent implements OnDestroy, OnInit {
     private _filterService: FilterService) { }
 
   filterChanged(searchText: string) {
-    this.filteredFishinglogs = this._filterService.filter(searchText, ['id', 'name', 'side'], this.fishinglogs);
+    this.filteredFishinglogs = this._filterService.filter(searchText, ['id', 'name'/*, 'side'*/], this.fishinglogs);
   }
 
   getFishinglogs() {
@@ -33,7 +35,9 @@ export class FishinglogListComponent implements OnDestroy, OnInit {
 
     this._fishinglogService.getFishinglogs()
       .subscribe(fishinglogs => {
+        console.log('fishinglogs', fishinglogs);
         this.fishinglogs = this.filteredFishinglogs = fishinglogs;
+        console.log('this.fishingLogs', this.fishinglogs);
         this.filterComponent.clear();
       });
   }
@@ -45,6 +49,7 @@ export class FishinglogListComponent implements OnDestroy, OnInit {
   ngOnInit() {
     componentHandler.upgradeDom();
     this.getFishinglogs();
+    console.log("ON Init");
     this._dbResetSubscription = this._fishinglogService.onDbReset
       .subscribe(() => this.getFishinglogs());
   }

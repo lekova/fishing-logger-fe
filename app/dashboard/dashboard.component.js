@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', '../fishinglogs/fishinglogs', '../auth/auth.service', '../blocks/blocks'], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/router-deprecated', 'rxjs/Rx', '../fishinglogs/fishinglogs', '../auth/auth.service', '../blocks/blocks'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,15 +10,15 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', '../fishinglogs/
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, Rx_1, fishinglogs_1, auth_service_1, blocks_1;
+    var core_1, router_deprecated_1, Rx_1, fishinglogs_1, auth_service_1, blocks_1;
     var DashboardComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (router_1_1) {
-                router_1 = router_1_1;
+            function (router_deprecated_1_1) {
+                router_deprecated_1 = router_deprecated_1_1;
             },
             function (Rx_1_1) {
                 Rx_1 = Rx_1_1;
@@ -43,12 +43,13 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', '../fishinglogs/
                     var _this = this;
                     // this._spinnerService.show();
                     debugger;
-                    this.fishinglogs = this._fishinglogService.getFishinglogs()
+                    var result = this._fishinglogService.getFishinglogs()
                         .catch(function (e) {
                         debugger;
                         _this._toastService.activate("" + e);
                         return Rx_1.Observable.of();
                     });
+                    this.fishinglogs = result;
                     // .finally(() => { this._spinnerService.hide(); })
                 };
                 DashboardComponent.prototype.gotoDetail = function (fishinglog) {
@@ -70,8 +71,11 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/Rx', '../fishinglogs/
                         templateUrl: 'app/dashboard/dashboard.component.html',
                         styleUrls: ['app/dashboard/dashboard.component.css']
                     }),
-                    router_1.CanActivate(auth_service_1.isLoggedIn), 
-                    __metadata('design:paramtypes', [fishinglogs_1.FishinglogService, router_1.Router, blocks_1.ToastService])
+                    router_deprecated_1.CanActivate(function () {
+                        console.log("Can Activate ");
+                        return auth_service_1.isLoggedIn();
+                    }), 
+                    __metadata('design:paramtypes', [fishinglogs_1.FishinglogService, router_deprecated_1.Router, blocks_1.ToastService])
                 ], DashboardComponent);
                 return DashboardComponent;
             }());

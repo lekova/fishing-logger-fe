@@ -4,7 +4,6 @@
   <button class="dashboard-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" [routerLink]="['Fishinglog', {id: 'new'}]">Add</button>
 
   <filter-text (changed)="filterChanged($event)"></filter-text>
-
   <ul class="characters">
     <li *ngFor="#fishinglog of filteredFishinglogs | sortFishinglogs">
 

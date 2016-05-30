@@ -1,9 +1,11 @@
-import { Component, Input, OnDestroy, OnInit } from 'angular2/core';
-import { CanDeactivate, ComponentInstruction, RouteParams, Router, ROUTER_DIRECTIVES } from 'angular2/router';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { CanDeactivate, ComponentInstruction, RouteParams, Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { Observable, Subscription } from 'rxjs/Rx';
 
 import { EntityService, ModalService, ToastService } from '../blocks/blocks';
 import { Fishinglog, FishinglogService } from '../fishinglogs/fishinglog.service';
+
+declare var componentHandler: any;
 
 @Component({
   selector: 'my-fishing-log',
@@ -74,7 +76,7 @@ export class FishinglogComponent implements CanDeactivate, OnDestroy, OnInit {
       this._fishinglogService.addFishinglog(fishinglog)
         .subscribe(char => {
           this._setEditFishinglog(char);
-          this._toastService.activate(`Successfully added ${char.name}`);
+          this._toastService.activate(`Successfully added ${char.palce_name}`);
           this._gotoFishinglogs();
         });
       return;
@@ -109,7 +111,7 @@ export class FishinglogComponent implements CanDeactivate, OnDestroy, OnInit {
     return this._entityService.propertiesDiffer(this.fishinglog, this.editFishinglog);
   }
 
-  private _setEditFishinglog(fishinglog: Fishinglog) {
+  private _setEditFishinglog(fishinglog: any) {
     if (fishinglog) {
       this.fishinglog = fishinglog;
       this.editFishinglog = this._entityService.clone(this.fishinglog);

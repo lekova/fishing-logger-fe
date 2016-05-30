@@ -1,15 +1,45 @@
-<div class="signup center-block jumbotron">
+<div layout="column" class="md-inline-form inputdemoBasicUsage">
     <h1>Login</h1>
-    <form role="form">
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="text" #email class="form-control" [(ngModel)]="userEmail" id="email" placeholder="Email">
+    <!--<md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding="">
+        <div>
+        <md-input-container>
+            <label>Email</label>
+            <input #email [(ngModel)]="userEmail" id="email">
+        </md-input-container>
+
+        <md-input-container>
+            <label>Password</label>
+            <input type="email" [(ngModel)]="userPass" id="password">
+        </md-input-container>
         </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" #password class="form-control" [(ngModel)]="userPass" id="password" placeholder="Password">
+    </md-content>-->
+    
+    <form role="form">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label form-group">
+            <input type="text" #email class="mdl-textfield__input" [(ngModel)]="userEmail" id="email" placeholder="Email">
+            <label for="email" class="mdl-textfield__label">Email</label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label form-group">
+            <input type="password" #password class="mdl-textfield__input" [(ngModel)]="userPass" id="password" placeholder="Password">
+            <label for="password" class="mdl-textfield__label">Password</label>
         </div>
         <button type="button" class="btn btn-default" (click)="login($event)">Login</button>
         <button type="button" class="btn btn-default" (click)="logout($event)">Log out</button>
     </form>
 </div>
+
+<!--<div class="form">
+    <md-card>
+      <md-card-title>Login</md-card-title>
+      <md-card-content>
+        <form>
+          <md-input placeholder="Email" [(ngModel)]="userEmail"></md-input>
+          <md-input placeholder="Password" [(ngModel)]="userPass"></md-input>
+
+        </form>
+      </md-card-content>
+      <md-card-actions align="end">
+        <button md-raised-button color="accent" (click)="login($event)>Login</button>
+      </md-card-actions>
+    </md-card>
+</div>-->

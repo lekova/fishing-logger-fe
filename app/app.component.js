@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/http', 'angular2/router', 'rxjs/Rx', './shared/shared', './blocks/blocks', './home/home.component', './auth/auth', './dashboard/dashboard', './fishinglogs/fishinglogs'], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/router-deprecated', 'rxjs/Rx', './shared/shared', './blocks/blocks', './home/home.component', './auth/auth', './dashboard/dashboard', './fishinglogs/fishinglogs'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,18 +10,15 @@ System.register(['angular2/core', 'angular2/http', 'angular2/router', 'rxjs/Rx',
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, http_1, router_1, shared_1, blocks_1, home_component_1, auth_1, dashboard_1, fishinglogs_1;
+    var core_1, router_deprecated_1, shared_1, blocks_1, home_component_1, auth_1, dashboard_1, fishinglogs_1;
     var AppComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (http_1_1) {
-                http_1 = http_1_1;
-            },
-            function (router_1_1) {
-                router_1 = router_1_1;
+            function (router_deprecated_1_1) {
+                router_deprecated_1 = router_deprecated_1_1;
             },
             function (_1) {},
             function (shared_1_1) {
@@ -52,24 +49,13 @@ System.register(['angular2/core', 'angular2/http', 'angular2/router', 'rxjs/Rx',
                         { caption: 'Fishing Logs', link: ['Fishinglogs'] }
                     ];
                 }
-                AppComponent.prototype.resetDb = function () {
-                    var _this = this;
-                    var msg = 'Are you sure you want to reset the database?';
-                    this._modalService.activate(msg).then(function (responseOK) {
-                        if (responseOK) {
-                            _this._messageService.resetDb();
-                        }
-                    });
-                };
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'fishing-logger-app',
                         templateUrl: 'app/app.component.html',
                         styleUrls: ['app/app.component.css'],
-                        directives: [router_1.ROUTER_DIRECTIVES, blocks_1.ModalComponent, blocks_1.SpinnerComponent, blocks_1.ToastComponent, auth_1.LoggedInRouterOutlet],
+                        directives: [blocks_1.ModalComponent, blocks_1.SpinnerComponent, blocks_1.ToastComponent, auth_1.LoggedInRouterOutlet],
                         providers: [
-                            http_1.HTTP_PROVIDERS,
-                            router_1.ROUTER_PROVIDERS,
                             fishinglogs_1.FishinglogService,
                             auth_1.AuthService,
                             auth_1.LoggedInRouterOutlet,
@@ -81,7 +67,7 @@ System.register(['angular2/core', 'angular2/http', 'angular2/router', 'rxjs/Rx',
                             blocks_1.ToastService
                         ]
                     }),
-                    router_1.RouteConfig([
+                    router_deprecated_1.RouteConfig([
                         { path: '/home', name: 'Home', component: home_component_1.HomeComponent, useAsDefault: true },
                         { path: '/login', name: 'Login', component: auth_1.LoginComponent },
                         { path: '/signup', name: 'SignUp', component: auth_1.SignupComponent },
