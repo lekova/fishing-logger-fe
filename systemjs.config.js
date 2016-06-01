@@ -91,6 +91,7 @@ System.config({
     '@angular2-material/input': 'node_modules/@angular2-material/input',
     '@angular2-material/icon': 'node_modules/@angular2-material/icon',
     '@angular2-material/list': 'node_modules/@angular2-material/list', 
-    'moment': 'node_modules/moment/moment.js'
+    'moment': 'node_modules/moment/moment.js',
+    'material-design-lite': 'node_modules/material-design-lite'
   }
 });
