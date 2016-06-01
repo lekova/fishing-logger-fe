@@ -52,8 +52,7 @@ export class AuthService {
     }
 
     signup(email: string, password: string, confirmPassword: string) {
-        this._spinnerService.show();
-        event.preventDefault();
+        //this._spinnerService.show();
 
         let headers = new Headers({'Content-Type': 'application/json'});
         let body = JSON.stringify({
@@ -72,8 +71,8 @@ export class AuthService {
 
                 this._loggedIn = true;
                 return response.json();
-            }).catch(this._exceptionService.catchBadResponse)
-            .finally(() => this._spinnerService.hide());
+            }).catch(this._exceptionService.catchBadResponse);
+            //.finally(() => this._spinnerService.hide());
     }
 
     changePassword(oldPassword: string, newPassword: string) {
@@ -102,7 +101,7 @@ export class AuthService {
                 this._loggedIn = true;
                 return response.json();
             }).catch(this._exceptionService.catchBadResponse)
-            .finally(() => this._spinnerService.hide());
+            //.finally(() => this._spinnerService.hide());
     }
 
     logout() {

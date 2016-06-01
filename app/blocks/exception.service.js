@@ -34,6 +34,7 @@ System.register(['@angular/core', 'rxjs/Rx', './toast/toast.service'], function(
                         var emsg = err ?
                             (err.error ? err.error : JSON.stringify(err)) :
                             (res.statusText || 'unknown error');
+                        console.log("this._toastService => ", _this._toastService);
                         _this._toastService.activate("Error - Bad Response - " + emsg);
                         //return Observable.throw(emsg); // TODO: We should NOT swallow error here.
                         return Rx_1.Observable.of();

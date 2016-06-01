@@ -64,9 +64,8 @@ System.register(['@angular/core', '@angular/http', '../blocks/blocks', '../share
                         .finally(function () { return _this._spinnerService.hide(); });
                 };
                 AuthService.prototype.signup = function (email, password, confirmPassword) {
+                    //this._spinnerService.show();
                     var _this = this;
-                    this._spinnerService.show();
-                    event.preventDefault();
                     var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
                     var body = JSON.stringify({
                         'credentials': {
@@ -82,8 +81,8 @@ System.register(['@angular/core', '@angular/http', '../blocks/blocks', '../share
                         localStorage.setItem('_id', response.json().user._id);
                         _this._loggedIn = true;
                         return response.json();
-                    }).catch(this._exceptionService.catchBadResponse)
-                        .finally(function () { return _this._spinnerService.hide(); });
+                    }).catch(this._exceptionService.catchBadResponse);
+                    //.finally(() => this._spinnerService.hide());
                 };
                 AuthService.prototype.changePassword = function (oldPassword, newPassword) {
                     var _this = this;
@@ -106,8 +105,8 @@ System.register(['@angular/core', '@angular/http', '../blocks/blocks', '../share
                         localStorage.setItem('token', response.json().user.token);
                         _this._loggedIn = true;
                         return response.json();
-                    }).catch(this._exceptionService.catchBadResponse)
-                        .finally(function () { return _this._spinnerService.hide(); });
+                    }).catch(this._exceptionService.catchBadResponse);
+                    //.finally(() => this._spinnerService.hide());
                 };
                 AuthService.prototype.logout = function () {
                     var _this = this;
