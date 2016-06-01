@@ -3,7 +3,7 @@
   <div>
     <div class="mdl-grid">
       <div class="mdl-cell mdl-cell--3-col"
-        *ngFor="#fishinglog of fishinglogs | async"
+        *ngFor="let fishinglog of fishinglogs | async"
         (click)="gotoDetail(fishinglog)">
 
         <button class="dashboard-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
@@ -13,5 +13,6 @@
 
       </div>
     </div>
+    <div >You don't have logs yet. Click the Add button to add logs.</div>
   </div>
 </article>

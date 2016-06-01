@@ -40,13 +40,12 @@ System.register(['@angular/core', '@angular/router-deprecated', 'rxjs/Rx', '../f
                     this._toastService = _toastService;
                 }
                 DashboardComponent.prototype.getFishinglogs = function () {
-                    var _this = this;
                     // this._spinnerService.show();
                     debugger;
                     var result = this._fishinglogService.getFishinglogs()
                         .catch(function (e) {
-                        debugger;
-                        _this._toastService.activate("" + e);
+                        console.log("e => ", e);
+                        // this._toastService.activate(`${e}`);
                         return Rx_1.Observable.of();
                     });
                     this.fishinglogs = result;
@@ -60,10 +59,7 @@ System.register(['@angular/core', '@angular/router-deprecated', 'rxjs/Rx', '../f
                     this._dbResetSubscription.unsubscribe();
                 };
                 DashboardComponent.prototype.ngOnInit = function () {
-                    var _this = this;
                     this.getFishinglogs();
-                    this._dbResetSubscription = this._fishinglogService.onDbReset
-                        .subscribe(function () { return _this.getFishinglogs(); });
                 };
                 DashboardComponent = __decorate([
                     core_1.Component({
@@ -72,7 +68,6 @@ System.register(['@angular/core', '@angular/router-deprecated', 'rxjs/Rx', '../f
                         styleUrls: ['app/dashboard/dashboard.component.css']
                     }),
                     router_deprecated_1.CanActivate(function () {
-                        console.log("Can Activate ");
                         return auth_service_1.isLoggedIn();
                     }), 
                     __metadata('design:paramtypes', [fishinglogs_1.FishinglogService, router_deprecated_1.Router, blocks_1.ToastService])

@@ -62,7 +62,7 @@ export class FishinglogService {
     
     return this._http.get(`${fishinglogsUrl}`, { headers })
       .map((response: Response) => {
-        console.log(response.json());
+        console.log("response.json() =>", response.json());
         return <Fishinglog[]>response.json();
       })
       .catch(this._exceptionService.catchBadResponse)

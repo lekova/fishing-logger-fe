@@ -12,7 +12,6 @@ import { ToastService } from '../blocks/blocks';
   styleUrls: ['app/dashboard/dashboard.component.css']
 })
 @CanActivate(() => {
-  console.log("Can Activate ")
   return isLoggedIn()
 })
 export class DashboardComponent implements OnDestroy, OnInit {
@@ -31,8 +30,8 @@ export class DashboardComponent implements OnDestroy, OnInit {
     
     var result = this._fishinglogService.getFishinglogs()
       .catch(e => {
-          debugger;
-        this._toastService.activate(`${e}`);
+        console.log("e => ", e);
+        // this._toastService.activate(`${e}`);
         return Observable.of();
       });
     this.fishinglogs = result;
@@ -50,7 +49,5 @@ export class DashboardComponent implements OnDestroy, OnInit {
 
   ngOnInit() {
     this.getFishinglogs();
-    this._dbResetSubscription = this._fishinglogService.onDbReset
-      .subscribe(() => this.getFishinglogs());
   }
 }

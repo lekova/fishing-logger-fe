@@ -70,7 +70,7 @@ System.register(['@angular/core', '@angular/http', '../blocks/blocks', '../share
                     });
                     return this._http.get("" + fishinglogsUrl, { headers: headers })
                         .map(function (response) {
-                        console.log(response.json());
+                        console.log("response.json() =>", response.json());
                         return response.json();
                     })
                         .catch(this._exceptionService.catchBadResponse)
